@@ -1,0 +1,16 @@
+*.pydevproject
+.metadata
+bin/**
+tmp/**
+tmp/**/*
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
