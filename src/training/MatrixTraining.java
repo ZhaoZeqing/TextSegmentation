@@ -19,9 +19,9 @@ public class MatrixTraining {
 	private final static String CORPUS = "/home/zena/corpus/segment-data/training/msr_training.utf8";
 
 	// 存储 B M E S 到 0 1 2 3 的映射
-	private final static HashMap<Character, Integer> map = new HashMap<Character, Integer>();
+	final static HashMap<Character, Integer> map = new HashMap<Character, Integer>();
 	// 存储 0 1 2 3 到 B M E S 的映射
-	private final static HashMap<Integer, Character> remap = new HashMap<Integer, Character>();
+	final static HashMap<Integer, Character> remap = new HashMap<Integer, Character>();
 	static {
 		map.put('B', 0);
 		map.put('M', 1);
@@ -34,7 +34,7 @@ public class MatrixTraining {
 	}
 
 	// 获取汉字编码
-	private final static HashMap<Character, Integer> ccemap = ChineseCharacterEncoding.getCCE(CORPUS);
+	final static HashMap<Character, Integer> ccemap = ChineseCharacterEncoding.getCCE(CORPUS);
 	private final static int ccesize = ccemap.size();
 
 	// 存储语料中 B M E S 分别出现的次数
@@ -44,6 +44,23 @@ public class MatrixTraining {
 
 	// 存储语料中每个汉字和B M E S分别同时出现的频率
 	private double freqMix[][] = new double[4][ccesize];
+
+	// 构造函数，new的时候开始训练
+	MatrixTraining() {
+		try {
+			readFile(new FileReader(CORPUS));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}		
+	}
+	
+	public double[][] getFreqStatus() {
+		return freqStatus;
+	}
+
+	public double[][] getFreqMix() {
+		return freqMix;
+	}
 
 	// 规范化句子
 	// 输入：一点 外语 知识 、 数理化 知识 也 没有 ， 还 攀 什么 高峰
@@ -198,16 +215,16 @@ public class MatrixTraining {
 			String line = null, statusStr = null, mixStr = null;
 
 			while ((line = br.readLine()) != null) {
-				System.out.println(line);
+				//System.out.println(line);
 				String[] encodeResult = encode(line);
 				if (encodeResult == null)
 					continue;
 
 				// 规范化句子
 				statusStr = encodeResult[0];
-				System.out.println(statusStr);
+				//System.out.println(statusStr);
 				mixStr = encodeResult[1];
-				System.out.println(mixStr);
+				//System.out.println(mixStr);
 
 				// 统计状态频率
 				countStatus(statusStr);
