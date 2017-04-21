@@ -16,7 +16,7 @@ import java.util.Stack;
 public class MatrixTraining {
 
 	// 已分好词的训练语料，语料格式：“ 一点 外语 知识 、 数理化 知识 也 没有 ， 还 攀 什么 高峰 ”
-	private final static String CORPUS = "/home/zena/corpus/segment-data/training/msr_training.utf8";
+	private final static String CORPUS = "/Users/zhaozeqing/Documents/msr_training.utf8";
 
 	// 存储 B M E S 到 0 1 2 3 的映射
 	final static HashMap<Character, Integer> map = new HashMap<Character, Integer>();
@@ -51,9 +51,9 @@ public class MatrixTraining {
 			readFile(new FileReader(CORPUS));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-		}		
+		}
 	}
-	
+
 	public double[][] getFreqStatus() {
 		return freqStatus;
 	}
@@ -215,22 +215,23 @@ public class MatrixTraining {
 			String line = null, statusStr = null, mixStr = null;
 
 			while ((line = br.readLine()) != null) {
-				//System.out.println(line);
+				// System.out.println(line);
 				String[] encodeResult = encode(line);
 				if (encodeResult == null)
 					continue;
 
 				// 规范化句子
 				statusStr = encodeResult[0];
-				//System.out.println(statusStr);
+				// System.out.println(statusStr);
 				mixStr = encodeResult[1];
-				//System.out.println(mixStr);
+				// System.out.println(mixStr);
 
 				// 统计状态频率
 				countStatus(statusStr);
 				// 统计混淆频率
 				countMix(mixStr);
 			}
+
 			// 计算状态转移矩阵
 			calStatusTransferMatrix();
 			// 计算混淆矩阵
@@ -254,7 +255,7 @@ public class MatrixTraining {
 		if (column == 4) {
 			System.out.println("\t\t" + "B" + "\t\t\t" + "M" + "\t\t\t" + "E" + "\t\t\t" + "S");
 		} else {
-			column = 4; //只打印前4个汉字
+			column = 4; // 只打印前4个汉字
 		}
 
 		for (i = 0; i < row; i++) {
@@ -269,14 +270,9 @@ public class MatrixTraining {
 	public static void main(String[] args) {
 
 		MatrixTraining mt = new MatrixTraining();
-		try {
-			mt.readFile(new FileReader(CORPUS));
-			System.out.println("状态转移矩阵矩阵：");
-			mt.printMatrix(mt.freqStatus);
-			System.out.println("混淆矩阵：");
-			mt.printMatrix(mt.freqMix);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+		System.out.println("状态转移矩阵矩阵：");
+		mt.printMatrix(mt.freqStatus);
+		System.out.println("混淆矩阵：");
+		mt.printMatrix(mt.freqMix);
 	}
 }

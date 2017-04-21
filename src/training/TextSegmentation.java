@@ -10,6 +10,13 @@ import be.ac.ulg.montefiore.run.jahmm.OpdfInteger;
 import be.ac.ulg.montefiore.run.jahmm.OpdfIntegerFactory;
 import be.ac.ulg.montefiore.run.jahmm.ViterbiCalculator;
 
+/**
+ * 
+ * 训练HMM
+ * 
+ * @author zhaozeqing
+ *
+ */
 public class TextSegmentation {
 
 	private double[][] statusTransferMatrix;
